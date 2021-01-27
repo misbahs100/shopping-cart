@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i id="minus-phone" class="fas fa-minus"></i></button>
+                           <button id="minus-phone" class="btn btn-default"><i  class="fas fa-minus"></i></button>
                            <input id="phoneInput" type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i id="plus-phone" class="fas fa-plus"></i></button>
+                           <button id="plus-phone" class="btn btn-default"><i  class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phonePrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i id="minus-case" class="fas fa-minus"></i></button>
+                           <button id="minus-case" class="btn btn-default"><i  class="fas fa-minus"></i></button>
                            <input id="caseInput" type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i id="plus-case" class="fas fa-plus"></i></button>
+                           <button id="plus-case" class="btn btn-default"><i  class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="casePrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subtotalPrice">1278</span></h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="totalPrice">1278</span></h5>
                      </div>
                   </div>
                </div>
@@ -84,24 +84,97 @@
       var plusPhone = document.getElementById("plus-phone"); 
       var plusCase = document.getElementById("plus-case");
       
-      
+      var minusPhone = document.getElementById("minus-phone");
+      var minusCase = document.getElementById("minus-case");
 
-      // plus-phone event handler
+      // plus-phone button event handler
       plusPhone.addEventListener("click", function(){
-          plus("phoneInput")
+         var subtotalPrice = document.getElementById("subtotalPrice").innerText;
+         var subtotalPriceParse = parseFloat(subtotalPrice);
+
+          var phonePriceParse = arithmatic("plus", "phoneInput", "phonePrice");
+
+          var casePrice = document.getElementById("casePrice").innerText;
+          var casePriceParse = parseFloat(casePrice);
+
+          document.getElementById("phonePrice").innerText = phonePriceParse;
+          document.getElementById("subtotalPrice").innerText = phonePriceParse + casePriceParse;
+          document.getElementById("totalPrice").innerText = phonePriceParse + casePriceParse;
+
          
       })
-      // plus-case event handler
+      // plus-case button event handler
       plusCase.addEventListener("click", function(){
-         plus("caseInput");
+         var subtotalPrice = document.getElementById("subtotalPrice").innerText;
+         var subtotalPriceParse = parseFloat(subtotalPrice);
+
+         var casePriceParse = arithmatic("plus", "caseInput", "casePrice");
+
+         var phonePrice = document.getElementById("phonePrice").innerText;
+          var phonePriceParse = parseFloat(phonePrice);
+
+          document.getElementById("casePrice").innerText = casePriceParse;
+          document.getElementById("subtotalPrice").innerText = phonePriceParse + casePriceParse;
+          document.getElementById("totalPrice").innerText = phonePriceParse + casePriceParse;
       })
 
-      function plus(id){
-         var phoneInput = document.getElementById(id).value;
-         var phoneInputParse = parseFloat(phoneInput);
-         phoneInputParse++;
-         document.getElementById(id).value = phoneInputParse;
+      function arithmatic(indicator, id1, id2){
+         var Input = document.getElementById(id1).value;
+         var InputParse = parseFloat(Input);
+
+         if(indicator == "plus"){InputParse++;}
+         else if (indicator == "minus"){InputParse--;}
+         
+         
+         if(id2 == "phonePrice"){
+            var Price = "1219";
+         }
+         else if(id2 == "casePrice"){
+            var Price = "59";
+         }
+        
+         var PriceParse = parseFloat(Price);
+         PriceParse = Price * InputParse;
+
+         // var subtotalPrice =
+
+         document.getElementById(id1).value = InputParse;
+         return PriceParse;
+
       }
+
+      // minus-phone button event handler
+      minusPhone.addEventListener("click", function(){
+         var subtotalPrice = document.getElementById("subtotalPrice").innerText;
+         var subtotalPriceParse = parseFloat(subtotalPrice);
+
+          var phonePriceParse = arithmatic("minus", "phoneInput", "phonePrice");
+
+          var casePrice = document.getElementById("casePrice").innerText;
+          var casePriceParse = parseFloat(casePrice);
+
+          document.getElementById("phonePrice").innerText = phonePriceParse;
+          document.getElementById("subtotalPrice").innerText = phonePriceParse + casePriceParse;
+          document.getElementById("totalPrice").innerText = phonePriceParse + casePriceParse;
+
+         
+      })
+      //minus-case button event handler
+      minusCase.addEventListener("click", function(){
+         var subtotalPrice = document.getElementById("subtotalPrice").innerText;
+         var subtotalPriceParse = parseFloat(subtotalPrice);
+
+         var casePriceParse = arithmatic("minus", "caseInput", "casePrice");
+
+         var phonePrice = document.getElementById("phonePrice").innerText;
+          var phonePriceParse = parseFloat(phonePrice);
+
+          document.getElementById("casePrice").innerText = casePriceParse;
+          document.getElementById("subtotalPrice").innerText = phonePriceParse + casePriceParse;
+          document.getElementById("totalPrice").innerText = phonePriceParse + casePriceParse;
+      })
+
+
 
 
    </script>
